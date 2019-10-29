@@ -1,7 +1,11 @@
 from .util import *
 from django.db import models
+from django.conf import settings
 
 # Create your models here.
+
+SHORTCODE_MAX = getattr(settings, "SHORTCODE_MAX", 15)
+
 class RmtURLManager(models.Manager):
     def all(self, *args, **kwargs):
         qs_main = super(RmtURLManager, self).all(*args, **kwargs)
@@ -24,7 +28,7 @@ class RmtURLManager(models.Manager):
 
 class RmtURL(models.Model):
     url = models.CharField(max_length=220,)
-    shortcode = models.CharField(max_length = 15, unique=True, blank=True )
+    shortcode = models.CharField(max_length = SHORTCODE_MAX, unique=True, blank=True )
     updated = models.DateTimeField(auto_now = True)
     timestamp = models.DateTimeField(auto_now_add = True)
     active = models.BooleanField(default=True)

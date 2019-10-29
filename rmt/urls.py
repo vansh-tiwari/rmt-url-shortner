@@ -15,7 +15,10 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from shortener.views import *
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^a/(?P<shrturl>[\w-]+)/$', rmt_redirect_view),
+    url(r'^b/(?P<shrturl>[\w-]+)/$', RmtRedirectedView.as_view()),
 ]
